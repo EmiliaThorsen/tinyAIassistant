@@ -1,0 +1,43 @@
+# Copy to config.toml and fill in. config.toml is gitignored since it holds your token.
+
+[homeassistant]
+url = "http://homeassistant.local:8123"
+# Create one under your HA profile -> Security -> Long-lived access tokens.
+# Leave empty to dry run, actions are only printed.
+token = ""
+
+# entity id = descriptive name the model picks between, say where it is and what it is.
+# Avoid giving one light a generic word the others lack, "light in the hallway" next to
+# four "spotlight ..." caught every request that said "light".
+# Run `.venv/bin/python -m core.homeassistant` to list your light entity ids.
+[lights]
+"light.lmp1" = "desk lamp in the office"
+"light.lmp2" = "ceiling light in the bedroom"
+
+# Optional, brightness levels the model picks between for requests without a number
+# ("dim the desk lamp", "make it moody"). Spoken numbers ("30 percent", "femtio procent")
+# are used as is. The model goes a lot on shared words, so avoid names that contain words
+# from other requests, a level called "bright" stole "full brightness" from "max".
+[light_levels]
+"low, dim, night light, barely on" = 10
+"medium, half, moody, cozy" = 50
+"high, normal" = 80
+"max, full brightness, as bright as possible" = 100
+
+# Optional, colors (rgb) and white temperatures (kelvin), picked from the same question as the
+# levels above so every name across the three sections must be unique. Adding the Swedish
+# word helped for colors. Lights that can't do color will make HA refuse the request.
+[light_colors]
+"red, röd" = [255, 0, 0]
+"orange" = [255, 120, 0]
+"yellow, gul" = [255, 220, 0]
+"green, grön" = [0, 255, 0]
+"blue, blå" = [0, 0, 255]
+"purple, lila" = [150, 0, 255]
+"pink, rosa" = [255, 60, 150]
+"white, vit" = [255, 255, 255]
+
+[light_temperatures]
+"warm white, candle, yellowish" = 2700
+"neutral white" = 4000
+"cold white, daylight, bluish" = 6500
